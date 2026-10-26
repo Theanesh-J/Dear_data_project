@@ -5,4 +5,4 @@ Data collection was down through a GitHub pages hosted HTML form connected to a 
 The purpose of hosting the form on GitHub pages was to be able to access an updated form on my phone instantly after any changes are made through the laptop.
 I found that the form often needed editing and addition of options throughout the project.
 
-link to data collection form; https://theanesh-j.github.io/Glass-data-input-form-/ 
+link to data collection form; https://theanesh-j.github.io/Glass-data-input-form-/
