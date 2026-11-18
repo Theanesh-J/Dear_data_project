@@ -1,4 +1,5 @@
 int petalCount=24;
+float i;
 
 //Flower configuration
 float petalLength=600;
@@ -6,16 +7,24 @@ float petalWidth=500;
 float petalDistance=22.5;
 
 void setup() {
-  size(700, 700);
+  size(700, 700, P3D);
+  colorMode(HSB, 360, 100, 100, 100);
   smooth(8);
-  noLoop();
+  //noLoop();
 }
 
 void draw() {
-  background(20, 18, 32);
+  background(20);
+
+  lights();
 
   translate(width/2, height/2);
+  rotateX(radians(60));
+  rotateY(radians(20));
+  rotateZ(radians(0));
+
   drawFlower();
+  i++;
 }
 
 void drawFlower() {
@@ -31,10 +40,11 @@ void drawFlower() {
 void drawPetal(float angle, int index, int i) {
   pushMatrix();
 
-  rotate(angle);
-  translate(0, -petalDistance);
+  rotateZ(angle);
+  float zOffset = 0;
+  translate(0, -petalDistance, zOffset);
 
-  colorMode(HSB, 360, 100, 100, 100);
+
 
   float hue= map(index, 0, petalCount, 190, 330);
 
@@ -52,9 +62,14 @@ void drawPetal(float angle, int index, int i) {
 
 void drawFlowerCentre() {
   //flower centre
-  fill(255, 190, 40);
+  //pushMatrix();
+
   noStroke();
-  ellipse(0, 0, 45, 45);
+  fill(45, 90, 100);
+  sphereDetail(24);
+  sphere(35);
+
+  //popMatrix();
 }
 
 void drawPetalShape(float w, float len) {
