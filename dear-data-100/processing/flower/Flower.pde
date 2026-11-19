@@ -1,10 +1,13 @@
 int petalCount=24;
-float i;
+//float i;
 
 //Flower configuration
 float petalLength=600;
 float petalWidth=500;
 float petalDistance=22.5;
+
+//mouse drag sensitivity
+float sensitivityX=0.5; float sensitivityY=0.5;
 
 void setup() {
   size(700, 700, P3D);
@@ -19,12 +22,18 @@ void draw() {
   lights();
 
   translate(width/2, height/2);
-  rotateX(radians(60));
-  rotateY(radians(20));
-  rotateZ(radians(0));
+  /*rotateX(radians(60));
+   rotateY(radians(20));
+   rotateZ(radians(0));*/
 
-  drawFlower();
-  i++;
+  pushMatrix();
+  //scroll3D();
+  rotateX(rotX);rotateY(rotY);
+  draw3DPetal(110, 190);
+  popMatrix();
+
+
+  //i++;
 }
 
 void drawFlower() {
@@ -81,3 +90,21 @@ void drawPetalShape(float w, float len) {
 
   endShape(CLOSE);
 }
+
+
+
+void scroll3D() {
+  if (mousePressed==true) {
+
+    rotateX(radians(mouseY/4));
+
+    rotateY(radians(mouseX/4));
+  }
+}
+float rotX; float rotY;
+void mouseDragged(){
+  rotY+=-(radians(mouseX-pmouseX)*sensitivityX); 
+  rotX+=-(radians(mouseY-pmouseY)*sensitivityY);
+}
+  
+ 
