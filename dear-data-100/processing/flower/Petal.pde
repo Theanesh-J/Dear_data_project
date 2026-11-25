@@ -13,6 +13,7 @@ void draw3DPetal(float w, float len) {
 
     float t1 = row / (float) lengthSteps;
     float t2 = (row + 1) / (float) lengthSteps;
+    //float t3 = (row +1) / (float) lengthSteps;
 
     beginShape(QUAD_STRIP);
 
@@ -22,6 +23,7 @@ void draw3DPetal(float w, float len) {
 
       addPetalVertex(t1, u, w, len, bendHeight, cupDepth);
       addPetalVertex(t2, u, w, len, bendHeight, cupDepth);
+      //addPetalVertex(t3,u,w,len,bendHeight, cupDepth);
     }
 
     endShape();
@@ -31,10 +33,10 @@ void draw3DPetal(float w, float len) {
 void addPetalVertex(
   float t, //controls how far along the petal we are
   float u, // controls which petal we are on
-  float w,
-  float len,
-  float bendHeight,
-  float cupDepth
+  float w, //petal width
+  float len, //petal length
+  float bendHeight, //petal long curvature
+  float cupDepth // petal width wise curvature
   ) {
 
   float shape = pow(sin(PI * t), 0.8);

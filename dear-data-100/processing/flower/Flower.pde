@@ -7,7 +7,13 @@ float petalWidth=500;
 float petalDistance=22.5;
 
 //mouse drag sensitivity
-float sensitivityX=0.5; float sensitivityY=0.5;
+float sensitivityX=0.005;
+float sensitivityY=0.005;
+float sensitivityZ=10;
+float rotX;
+float rotY;
+float rotZ=0.1;
+boolean axes=false;
 
 void setup() {
   size(700, 700, P3D);
@@ -22,15 +28,18 @@ void draw() {
   lights();
 
   translate(width/2, height/2);
-  /*rotateX(radians(60));
-   rotateY(radians(20));
-   rotateZ(radians(0));*/
+
 
   pushMatrix();
-  //scroll3D();
-  rotateX(rotX);rotateY(rotY);
-  draw3DPetal(110, 190);
+
+  rotateX(rotX);
+  rotateY(rotY);
+  rotateZ(rotZ);
+  rotateOnZ();
+  draw3DPetal(210, 290);
+  drawAxes(700);
   popMatrix();
+  
 
 
   //i++;
@@ -101,10 +110,50 @@ void scroll3D() {
     rotateY(radians(mouseX/4));
   }
 }
-float rotX; float rotY;
-void mouseDragged(){
-  rotY+=-(radians(mouseX-pmouseX)*sensitivityX); 
-  rotX+=-(radians(mouseY-pmouseY)*sensitivityY);
+
+void mouseDragged() {
+  rotY+=((mouseX-pmouseX)*sensitivityX);
+  rotX+=-((mouseY-pmouseY)*sensitivityY);
 }
+
+void rotateOnZ() {
+  if (keyPressed) {
+    if (key=='z' ||key=='Z') {
+      rotZ+=(radians(sensitivityZ));
+    }
+  }
+}
+
+//code below toggles axes on/off when spacebar is pressed
+void keyPressed() {
+  if (key==' ') {
+    axes=!axes;
   
+  }
  
+}
+
+void drawAxes(float len) {//change varaible name as len is also flower petal length
+  if (!axes) {
+    return;
+  }
+  pushStyle();
+
+  colorMode(RGB);
+  strokeWeight(3);
+
+  // X axis
+  stroke(255, 0, 0);
+  line(0, 0, 0, len, 0, 0);
+
+  // Y axis
+  stroke(0, 255, 0);
+  line(0, 0, 0, 0, len, 0);
+
+  // Z axis
+  stroke(0, 0, 255);
+  line(0, 0, 0, 0, 0, len);
+
+  popStyle();
+}
+// end of axes toggle and drawing
