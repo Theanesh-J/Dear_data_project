@@ -1,4 +1,4 @@
-int petalCount=24;
+int petalCount=12;
 //float i;
 
 //Flower configuration
@@ -39,13 +39,13 @@ void draw() {
   draw3DFlower();
   drawAxes(700);
   popMatrix();
-  
+
 
 
   //i++;
 }
 
-void drawFlower() {
+/*void drawFlower() {
   for (int i=0; i< petalCount; i++) {
 
     float angle= TWO_PI *i/petalCount;
@@ -53,43 +53,63 @@ void drawFlower() {
     drawPetal(angle, i, i);
     drawFlowerCentre();
   }
-}
+}*/
 
-void draw3DFlower(){
-  for (int i=0; i<petalCount; i++){
-    float angle =TWO_PI * i/petalCount;
-    
+void draw3DFlower() {
+
+
+  for (int i=0; i<petalCount; i++) {
+    float angle =TWO_PI*i/petalCount;
+    float petalTilt=-10+5*sin(angle*2);//control how steep the cone of the flower is
+
+
     pushMatrix();
     rotateZ(angle);
-    translate(0,-petalDistance,0);
-    draw3DPetal(210,290);
+    translate(0, -petalDistance, 0);
+    rotateX(radians(petalTilt));
+    draw3DPetal(210, 290);
     drawFlowerCentre();
+    popMatrix();
+  }
+
+  int innerPetalCount= petalCount/2;
+
+  for (int i=0; i< innerPetalCount; i++) {
+    float angle =TWO_PI * i / innerPetalCount + PI/petalCount;
+    float petalTilt=-25+3*sin(angle*2);
+
+
+    pushMatrix();
+    rotateZ(angle);
+    translate(0, -petalDistance, 18);
+    rotateX(radians(petalTilt));
+    draw3DPetal(150, 210);
     popMatrix();
   }
 }
 
-void drawPetal(float angle, int index, int i) {
-  pushMatrix();
-
-  rotateZ(angle);
-  float zOffset = 0;
-  translate(0, -petalDistance, zOffset);
-
-
-
-  float hue= map(index, 0, petalCount, 190, 330);
-
-  fill(hue, 65, 95, 85);
-  noStroke();
-
-  float variedLength = petalLength + sin(i * 1.7) * 12;
-
-  float variedWidth = petalWidth * (0.88 + 0.12 * cos(i * 2.1));
-
-  drawPetalShape(variedWidth, variedLength);
-
-  popMatrix();
-}
+/*void drawPetal(float angle, int index, int i) {// redundant code used for the 2d petal however salvage the hue properties
+ pushMatrix();
+ 
+ rotateZ(angle);
+ float zOffset = 0;
+ translate(0, -petalDistance, zOffset);
+ 
+ 
+ 
+ float hue= map(index, 0, petalCount, 190, 330);
+ 
+ fill(hue, 65, 95, 85);
+ noStroke();
+ 
+ float variedLength = petalLength + sin(i * 1.7) * 12;
+ 
+ float variedWidth = petalWidth * (0.88 + 0.12 * cos(i * 2.1));
+ 
+ drawPetalShape(variedWidth, variedLength);
+ 
+ popMatrix();
+ }*/
 
 void drawFlowerCentre() {
   //flower centre
@@ -141,9 +161,7 @@ void rotateOnZ() {
 void keyPressed() {
   if (key==' ') {
     axes=!axes;
-  
   }
- 
 }
 
 void drawAxes(float len) {//change varaible name as len is also flower petal length
